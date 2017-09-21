@@ -12,37 +12,50 @@
  * @author Dr Timothy C. Lethbridge
  * @version July 2000
  */
-public class CartesianPoint extends PointCP
+public class PolarPoint extends PointCP
 {
   
   //Constructors ******************************************************
 
   /**
    * Constructs a coordinate object, with a type identifier.
+ * @return 
    */
-  public CartesianPoint(double x, double y)
+  public PolarPoint(double rho, double theta)
   {
-	  super(x,y);
+	  super(rho,theta);
   }
 	
   
   //Instance methods **************************************************
+ 
+ 
+  public double getX()
+  {
+	  return (Math.sqrt(Math.pow(xOrRho, 2) + Math.pow(yOrTheta, 2)));
+  }
   
-  public double getX(){return xOrRho;}
-  public double getY(){return yOrTheta;}
+  public double getY()
+  {
+	  return Math.toDegrees(Math.atan2(yOrTheta, xOrRho));
+  }
   
-  public double getRho(){ return (Math.sqrt(Math.pow(xOrRho, 2) + Math.pow(yOrTheta, 2)));}
+  public double getRho()
+  {
+     return xOrRho;
+  }
   
-  public double getTheta() {return Math.toDegrees(Math.atan2(yOrTheta, xOrRho));}  
-	
-  /**
-   * Converts Cartesian coordinates to Polar coordinates.
-   */
+  public double getTheta()
+  {
+      return yOrTheta;
+  }
+  
   public PointCP convert()
   {
-    return new PolarPoint(getRho(),getTheta());
+    return new CartesianPoint(getX(),getY());
   }
-
+  
+  
   /**
    * Calculates the distance in between two points using the Pythagorean
    * theorem  (C ^ 2 = A ^ 2 + B ^ 2). Not needed until E2.30.
@@ -51,7 +64,7 @@ public class CartesianPoint extends PointCP
    * @param pointB The second point.
    * @return The distance between the two points.
    */
-  public double getDistance(CartesianPoint pointB)
+  public double getDistance(PointCP pointB)
   {
     // Obtain differences in X and Y, sign is not important as these values
     // will be squared later.
@@ -69,7 +82,7 @@ public class CartesianPoint extends PointCP
    * @param rotation The number of degrees to rotate the point.
    * @return The rotated image of the original point.
    */
-  public CartesianPoint rotatePoint(double rotation)
+  public PointCP rotatePoint(double rotation)
   {
     double radRotation = Math.toRadians(rotation);
     double X = getX();
@@ -87,6 +100,6 @@ public class CartesianPoint extends PointCP
    */
   public String toString()
   {
-    return "Stored as Cartesian  (" + getX() + "," + getY() + ")";
+    return "Stored as Polar [" + getRho() + "," + getTheta() + "]";
   }
 }
