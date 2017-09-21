@@ -84,24 +84,17 @@ public class PointCPTest
     String theInput = "";  // Input information
     
     //Information to be passed to the constructor
-    char coordType = 'A'; // Temporary default, to be set to P or C
+    char coordType = 'C'; // Temporary default, to be set to P or C
     double a = 0.0;
     double b = 0.0;
 
     // Allow the user to enter the three different arguments
-    for (int i = 0; i < 3; i++)
+    for (int i = 1; i < 3; i++)
     {
       while (!(isOK))
       {
         isOK = true;  //flag set to true assuming input will be valid
-          
-        // Prompt the user
-        if (i == 0) // First argument - type of coordinates
-        {
-          System.out.print("Enter the type of Coordinates you "
-            + "are inputting ((C)artesian / (P)olar): ");
-        }
-        else // Second and third arguments
+        
         {
           System.out.print("Enter the value of " 
             + (coordType == 'C' 
